@@ -8,8 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DetailController: UIViewController {
 
+    @IBOutlet weak var detailName: UILabel!
+    @IBOutlet weak var detailDetail: UILabel!
+    @IBOutlet weak var detailLocation: UILabel!
+    @IBOutlet weak var detailPhoto: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
