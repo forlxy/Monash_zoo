@@ -13,8 +13,43 @@ protocol newLocationDelegate {
     func didSaveLocation(_ annotation: FencedAnnotation)
 }
 
-class ListContoller: UITableViewController, CLLocationManagerDelegate, newLocationDelegate {
-    var mapViewController: MapContoller?
+class ListController: UITableViewController, CLLocationManagerDelegate, newLocationDelegate, UISearchResultsUpdating {
+    
+    var status: Bool
+    @IBOutlet weak var sortButton: UIBarButtonItem!
+    @IBAction func sortClick(_ sender: Any) {
+        if status {
+            filteredList = filteredList.sorted {$0.name! <= $1.name!}
+            sortButton.title = "Z-A"
+        }
+        else {
+            filteredList = filteredList.sorted {$0.name! > $1.name!}
+            sortButton.title = "A-Z"
+        }
+        status = !status;
+        
+        tableView.reloadData()
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, searchText.count > 0 {
+            filteredList = allList.filter({(animal: Animal) -> Bool in
+                return animal.name!.contains(searchText)
+            })
+        }
+        else {
+            filteredList = allList
+        }
+        
+        tableView.reloadData()
+        
+    }
+    
+    
+    var allList = [Animal]()
+    var filteredList = [Animal]()
+    
+    var mapViewController: MapController?
     var locationList: NSMutableArray
     
     var geoLocation: CLCircularRegion?
@@ -22,6 +57,7 @@ class ListContoller: UITableViewController, CLLocationManagerDelegate, newLocati
     
     required init?(coder aDecoder: NSCoder) {
         locationList = NSMutableArray()
+        status = true
         super.init(coder: aDecoder)
     }
     
@@ -35,28 +71,45 @@ class ListContoller: UITableViewController, CLLocationManagerDelegate, newLocati
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let location: FencedAnnotation = FencedAnnotation (newTitle: "Monash University - Caulfield", newSubtitle: "Our location right now", lat: -37.877623, long: 145.045374)
-        self.locationList.add(location)
-        self.mapViewController?.addAnnotation(annotation: location)
+        filteredList = allList
         
-        geoLocation = CLCircularRegion(center: location.coordinate, radius: 100, identifier: location.title!)
-        geoLocation!.notifyOnExit = true
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Animal"
+        navigationItem.searchController = searchController
         
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startMonitoring(for: geoLocation!)
+//        let location: FencedAnnotation = FencedAnnotation (newTitle: "Monash University - Caulfield", newSubtitle: "Our location right now", lat: -37.877623, long: 145.045374)
+//        self.locationList.add(location)
+//        self.mapViewController?.addAnnotation(annotation: location)
+//
+//        geoLocation = CLCircularRegion(center: location.coordinate, radius: 100, identifier: location.title!)
+//        geoLocation!.notifyOnExit = true
+//
+//        locationManager.delegate = self
+//        locationManager.requestAlwaysAuthorization()
+//        locationManager.startMonitoring(for: geoLocation!)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         let alert = UIAlertController(title: "Movement Detected!", message: "You have left Monash Caulfield", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func loadImageData(fileName: String) -> UIImage? {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        var image: UIImage?
+        if let pathComponent = url.appendingPathComponent(fileName) {
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            let fileData = fileManager.contents(atPath: filePath)
+            image = UIImage(data: fileData!)
+        }
+        
+        return image
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,14 +126,19 @@ class ListContoller: UITableViewController, CLLocationManagerDelegate, newLocati
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return locationList.count
+        return filteredList.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath)
-        let annotation: FencedAnnotation = self.locationList.object(at: indexPath.row) as! FencedAnnotation
-        cell.textLabel!.text = annotation.title
-        cell.detailTextLabel!.text = "Lat: \(annotation.coordinate.latitude) Long: \(annotation.coordinate.longitude)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AnimalCell", for: indexPath) as! AnimalCell
+        //let annotation: FencedAnnotation = self.locationList.object(at: indexPath.row) as! FencedAnnotation
+        cell.nameLabel!.text = filteredList[indexPath.row].name
+        
+        cell.discriptionLabel!.text = filteredList[indexPath.row].descript
+        
+       
+        cell.iconImage.image = loadImageData(fileName: filteredList[indexPath.row].mapIcon!)
+        
         return cell
     }
     
@@ -90,7 +148,7 @@ class ListContoller: UITableViewController, CLLocationManagerDelegate, newLocati
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddFromAll" {
-            let controller = segue.destination as! NewLocationController
+            let controller = segue.destination as! AddController
             controller.delegate = self
         }
     }

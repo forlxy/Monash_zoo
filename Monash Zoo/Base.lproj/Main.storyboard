@@ -13,7 +13,7 @@
         <!--MapController-->
         <scene sceneID="zfx-yr-ano">
             <objects>
-                <viewController title="MapController" id="2zl-7p-f9q" customClass="MapContoller" customModule="Monash_Zoo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="MapController" id="2zl-7p-f9q" customClass="MapController" customModule="Monash_Zoo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ull-07-UNb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
                     <navigationItem key="navigationItem" title="Zoo Map" id="odn-XB-l4s">
                         <barButtonItem key="rightBarButtonItem" title="All" id="ow1-EP-Lwt">
                             <connections>
-                                <segue destination="Vxb-Lp-1iv" kind="show" identifier="ShowAllSegue" id="lJd-T0-fDj"/>
+                                <segue destination="rfk-2y-UJF" kind="show" identifier="ShowAllSegue" id="lVi-PB-6Gl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -49,44 +49,35 @@
         <!--ListController-->
         <scene sceneID="ou1-Rh-Nuy">
             <objects>
-                <tableViewController title="ListController" clearsSelectionOnViewWillAppear="NO" id="rfk-2y-UJF" customClass="ListContoller" customModule="Monash_Zoo" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="ListController" clearsSelectionOnViewWillAppear="NO" id="rfk-2y-UJF" customClass="ListController" customModule="Monash_Zoo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nSf-6v-LPG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" textLabel="BLq-et-6S3" detailTextLabel="rZ9-NY-eA7" imageView="AjZ-Da-G9w" style="IBUITableViewCellStyleSubtitle" id="ycL-xv-FXA" customClass="ListTableViewCell" customModule="Monash_Zoo" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AnimalCell" textLabel="X6q-XF-yDc" detailTextLabel="ToL-La-1l3" style="IBUITableViewCellStyleSubtitle" id="ycL-xv-FXA" customClass="AnimalCell" customModule="Monash_Zoo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ycL-xv-FXA" id="OLM-Kk-1ku">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ycL-xv-FXA" id="OLM-Kk-1ku" customClass="AnimalCell" customModule="Monash_Zoo" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BLq-et-6S3">
-                                            <rect key="frame" x="87" y="5" width="33.333333333333336" height="20.333333333333332"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="X6q-XF-yDc">
+                                            <rect key="frame" x="20.000000000000004" y="5" width="33.333333333333336" height="20.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rZ9-NY-eA7">
-                                            <rect key="frame" x="87" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ToL-La-1l3">
+                                            <rect key="frame" x="19.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="pig" id="AjZ-Da-G9w">
-                                            <rect key="frame" x="20" y="0.0" width="52" height="43.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="listDiscription" destination="rZ9-NY-eA7" id="XAk-g4-86M"/>
-                                    <outlet property="listIcon" destination="AjZ-Da-G9w" id="eNY-qd-Ywd"/>
-                                    <outlet property="listName" destination="BLq-et-6S3" id="iPY-e5-ZpP"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -95,17 +86,24 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Animal List" id="Tjy-ok-2dB">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="kAe-tZ-bVX"/>
+                        <barButtonItem key="rightBarButtonItem" title="A-Z" id="kAe-tZ-bVX">
+                            <connections>
+                                <action selector="sortClick:" destination="rfk-2y-UJF" id="rq8-sZ-psU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="sortButton" destination="kAe-tZ-bVX" id="4gJ-jq-Kdg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dq6-SJ-Z6H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="416"/>
+            <point key="canvasLocation" x="1186" y="-312"/>
         </scene>
         <!--AddContoller-->
         <scene sceneID="jov-sm-FZ8">
             <objects>
-                <viewController title="AddContoller" id="vpP-gP-fnC" customClass="AddContoller" customModule="Monash_Zoo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="AddContoller" id="vpP-gP-fnC" customClass="AddController" customModule="Monash_Zoo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XBA-ld-evi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cmx-ZX-Arr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="966.66666666666674" y="-1076.0869565217392"/>
+            <point key="canvasLocation" x="964" y="-1141"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lhr-Ef-Qu7">
@@ -242,12 +240,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="b48-Ad-nmA" kind="relationship" relationship="rootViewController" id="mwy-cw-6Zc"/>
+                        <segue destination="rfk-2y-UJF" kind="relationship" relationship="rootViewController" id="EEL-dP-50k"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kjz-Bu-Grl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="-312"/>
+            <point key="canvasLocation" x="252" y="326"/>
         </scene>
         <!--DetailController-->
         <scene sceneID="Ylv-LI-YEa">
@@ -335,20 +333,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIE-Mc-IKh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2771.0144927536235" y="-311.41304347826087"/>
+            <point key="canvasLocation" x="251" y="1001"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Split Contoller-->
         <scene sceneID="Mq8-pH-S8A">
             <objects>
-                <splitViewController id="Vxb-Lp-1iv" sceneMemberID="viewController">
+                <splitViewController id="Vxb-Lp-1iv" customClass="SplitContoller" customModule="Monash_Zoo" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="rfk-2y-UJF" kind="relationship" relationship="masterViewController" id="hz6-Of-lQg"/>
-                        <segue destination="BGK-kF-Kgz" kind="relationship" relationship="detailViewController" id="Bty-11-d1k"/>
+                        <segue destination="BGK-kF-Kgz" kind="relationship" relationship="masterViewController" id="cuH-Ub-im0"/>
+                        <segue destination="b48-Ad-nmA" kind="relationship" relationship="detailViewController" id="ctd-cX-ei4"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQ7-p1-1MY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="-312"/>
+            <point key="canvasLocation" x="-1070" y="585"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n2I-Vn-XW4">
@@ -367,7 +365,7 @@
             <point key="canvasLocation" x="-580" y="-312"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="pig" width="612" height="515"/>
-    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="lVi-PB-6Gl"/>
+    </inferredMetricsTieBreakers>
 </document>

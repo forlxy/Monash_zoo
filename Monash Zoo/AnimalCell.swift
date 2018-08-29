@@ -1,18 +1,19 @@
 //
-//  ListTableViewCell.swift
+//  AnimalCell.swift
 //  Monash Zoo
 //
-//  Created by Sam on 2018/8/27.
+//  Created by Sam on 2018/8/28.
 //  Copyright © 2018年 Sam. All rights reserved.
 //
 
 import UIKit
 
-class ListTableViewCell: UITableViewCell {
+class AnimalCell: UITableViewCell {
 
-    @IBOutlet weak var listDiscription: UILabel!
-    @IBOutlet weak var listName: UILabel!
-    @IBOutlet weak var listIcon: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var discriptionLabel: UILabel!
+    @IBOutlet weak var iconImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

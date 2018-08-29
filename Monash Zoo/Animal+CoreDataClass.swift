@@ -9,8 +9,16 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 
-public class Animal: NSManagedObject {
+public class Animal: NSManagedObject, MKAnnotation {
+    public var coordinate: CLLocationCoordinate2D
+
+    init(lat: Double, long: Double) {
+        coordinate = CLLocationCoordinate2D()
+        coordinate.latitude = lat
+        coordinate.longitude = long
+    }
 
 }

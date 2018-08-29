@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class AddContoller: UIViewController, CLLocationManagerDelegate {
+class AddController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var titleTextView: UITextField!
     @IBOutlet weak var descriptionTextView: UITextField!
