@@ -12,6 +12,7 @@ import CoreData
 class MapController: UIViewController{  
     
     private var animalList: [Animal] = []
+    private var locationAnimalList: [FencedAnnotation] = []
     private var managedObjectContext: NSManagedObjectContext
     
     @IBOutlet weak var mapView: MKMapView!
@@ -40,8 +41,9 @@ class MapController: UIViewController{
         }
         
         for animal in animalList {
-            let location: FencedAnnotation = FencedAnnotation (newTitle: animal.name!, newSubtitle: animal.descript!, lat: animal.lat, long: animal.long)
+            let location: FencedAnnotation = FencedAnnotation (newAnimal: animal)
             addAnnotation(annotation: location)
+            locationAnimalList.append(location)
         }
         
         
@@ -182,7 +184,7 @@ class MapController: UIViewController{
         if segue.identifier == "ShowAllSegue" {
             if let controller = segue.destination as? ListController {
                 controller.mapViewController = self
-                controller.allList = animalList
+                controller.allList = locationAnimalList
             }
         }
         

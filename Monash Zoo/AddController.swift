@@ -16,14 +16,14 @@ class AddController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var latitudeTextView: UITextField!
     @IBOutlet weak var longitudeTextView: UITextField!
     
-    
     @IBAction func saveCurrentLocation(_ sender: Any) {
         self.latitudeTextView.text = "\(currentLocation!.latitude)"
         self.longitudeTextView.text = "\(currentLocation!.longitude)"
     }
     
     @IBAction func saveNewLocation(_ sender: Any) {
-        addNewLocation(title: titleTextView.text!, description: descriptionTextView.text!, lat: Double(latitudeTextView.text!)!, long: Double(longitudeTextView.text!)!)
+//        var animal: Animal
+//        addNewLocation(animal: animal)
     }
     
     var delegate: newLocationDelegate?
@@ -47,8 +47,8 @@ class AddController: UIViewController, CLLocationManagerDelegate {
         currentLocation = loc.coordinate
     }
     
-    func addNewLocation(title: String, description: String, lat: Double, long: Double) {
-        let location: FencedAnnotation = FencedAnnotation(newTitle: title, newSubtitle: description, lat: lat, long: long)
+    func addNewLocation(animal: Animal) {
+        let location: FencedAnnotation = FencedAnnotation(newAnimal: animal)
         delegate!.didSaveLocation(location)
         self.navigationController?.popViewController(animated: true)
     }

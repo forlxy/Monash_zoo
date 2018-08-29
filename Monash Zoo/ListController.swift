@@ -16,14 +16,19 @@ protocol newLocationDelegate {
 class ListController: UITableViewController, CLLocationManagerDelegate, newLocationDelegate, UISearchResultsUpdating {
     
     var status: Bool
+    
+    
+    var allList = [FencedAnnotation]()
+    var filteredList = [FencedAnnotation]()
+    
     @IBOutlet weak var sortButton: UIBarButtonItem!
     @IBAction func sortClick(_ sender: Any) {
         if status {
-            filteredList = filteredList.sorted {$0.name! <= $1.name!}
+            filteredList = filteredList.sorted {$0.animal.name! <= $1.animal.name!}
             sortButton.title = "Z-A"
         }
         else {
-            filteredList = filteredList.sorted {$0.name! > $1.name!}
+            filteredList = filteredList.sorted {$0.animal.name! > $1.animal.name!}
             sortButton.title = "A-Z"
         }
         status = !status;
@@ -33,8 +38,8 @@ class ListController: UITableViewController, CLLocationManagerDelegate, newLocat
     
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text, searchText.count > 0 {
-            filteredList = allList.filter({(animal: Animal) -> Bool in
-                return animal.name!.contains(searchText)
+            filteredList = allList.filter({(element: FencedAnnotation) -> Bool in
+                return element.animal.name!.contains(searchText)
             })
         }
         else {
@@ -45,25 +50,19 @@ class ListController: UITableViewController, CLLocationManagerDelegate, newLocat
         
     }
     
-    
-    var allList = [Animal]()
-    var filteredList = [Animal]()
-    
     var mapViewController: MapController?
-    var locationList: NSMutableArray
     
     var geoLocation: CLCircularRegion?
     var locationManager: CLLocationManager = CLLocationManager()
     
     required init?(coder aDecoder: NSCoder) {
-        locationList = NSMutableArray()
         status = true
         super.init(coder: aDecoder)
     }
     
-
+//NOT YET
     func didSaveLocation(_ annotation: FencedAnnotation) {
-        self.locationList.add(annotation)
+//        self.locationList.add(annotation)
         self.mapViewController?.addAnnotation(annotation: annotation)
         self.tableView.reloadData()
     }
@@ -132,18 +131,18 @@ class ListController: UITableViewController, CLLocationManagerDelegate, newLocat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AnimalCell", for: indexPath) as! AnimalCell
         //let annotation: FencedAnnotation = self.locationList.object(at: indexPath.row) as! FencedAnnotation
-        cell.nameLabel!.text = filteredList[indexPath.row].name
+        cell.nameLabel!.text = filteredList[indexPath.row].animal.name
         
-        cell.discriptionLabel!.text = filteredList[indexPath.row].descript
+        cell.discriptionLabel!.text = filteredList[indexPath.row].animal.descript
         
        
-        cell.iconImage.image = loadImageData(fileName: filteredList[indexPath.row].mapIcon!)
+        cell.iconImage.image = loadImageData(fileName: filteredList[indexPath.row].animal.mapIcon!)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.mapViewController?.focusOn(annotation: self.locationList.object(at: indexPath.row) as! MKAnnotation)
+        self.mapViewController?.focusOn(annotation: self.filteredList[indexPath.row] as MKAnnotation)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

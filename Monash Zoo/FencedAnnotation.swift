@@ -11,15 +11,13 @@ import MapKit
 
 class FencedAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
-    var title: String?
-    var subtitle: String?
+    var animal: Animal
     
-    init(newTitle: String, newSubtitle: String, lat: Double, long: Double) {
-        title = newTitle
-        subtitle = newSubtitle
+    init(newAnimal: Animal) {
+        animal = newAnimal
         coordinate = CLLocationCoordinate2D()
-        coordinate.latitude = lat
-        coordinate.longitude = long
+        coordinate.latitude = newAnimal.lat
+        coordinate.longitude = newAnimal.long
     }
 
     
